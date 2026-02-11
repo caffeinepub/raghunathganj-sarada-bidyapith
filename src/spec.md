@@ -1,10 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the site header logo with the newly uploaded logo image.
+**Goal:** Retry the build and deployment for the current app revision and ensure it completes successfully, or provide complete error output if it fails again.
 
 **Planned changes:**
-- Generate an optimized, round-cropped, transparent PNG logo at 512x512 from the uploaded file and save it to `frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png`.
-- Update the site header to use the static asset at `/assets/generated/school-logo-uploaded.dim_512x512.png` on both desktop and mobile navigation.
+- Re-run the full build and deployment process for the current frontend and backend revision.
+- If deployment fails, capture and surface the complete deployment output, including the failing step and full error/stack message.
 
-**User-visible outcome:** The header displays the updated school logo consistently across desktop and mobile views.
+**User-visible outcome:** The application is successfully deployed and reachable; if not, the full deployment failure details are available to diagnose in a follow-up change.

@@ -82,6 +82,7 @@ export interface _SERVICE {
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'bootstrapFirstAdmin' : ActorMethod<[], undefined>,
   'deleteAnnouncement' : ActorMethod<[string], undefined>,
   'deleteEvent' : ActorMethod<[string], undefined>,
   'deleteSetting' : ActorMethod<[string], undefined>,
@@ -92,12 +93,14 @@ export interface _SERVICE {
   'getAllSettings' : ActorMethod<[], Array<Setting>>,
   'getAnnouncement' : ActorMethod<[string], Announcement>,
   'getAnnouncementsByPublished' : ActorMethod<[boolean], Array<Announcement>>,
+  'getCallerPrincipalText' : ActorMethod<[], string>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getContentMetadata' : ActorMethod<
     [ContentCollection, [] | [string]],
     [] | [ContentMetadata]
   >,
   'getEvent' : ActorMethod<[string], Event>,
+  'getFirstAdminWindowOpen' : ActorMethod<[], boolean>,
   'getPublishedGalleryEntries' : ActorMethod<[], Array<[string, ExternalBlob]>>,
   'getSetting' : ActorMethod<[string], [] | [Setting]>,
   'getStaffProfile' : ActorMethod<[string], StaffProfile>,

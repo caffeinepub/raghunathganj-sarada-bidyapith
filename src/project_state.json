@@ -1,11 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 13,
   "summary": "Build a website for the upper primary school \"Raghunathganj Sarada Bidyapith\" with editable (CMS-like) features.",
-  "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Optimized round-cropped school logo with transparent background (school-logo-uploaded.dim_512x512.png, 512x512)",
+  "architectural_notes": [
+    "Admin access is controlled by a backend allowlist of Internet Identity principals; users encountering 'Access Denied' must have their principal added to this allowlist.",
+    "User provided their Internet Identity principal: xfz3b-e67hi-f3hzj-rhwom-7mwwe-qfwub-44lyr-ojgc3-xh4rp-urycv-fqe (can be added to backend admin allowlist to grant /admin access)."
+  ],
+  "known_issues": [
+    "Admin access still blocked until the provided principal is added to the backend admin allowlist.",
+    "Deployment/build did not complete due to a deployment error; redeploy requested."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-public-facing-school-website-for-the-upper-primary-school-named-raghunathganj-sarada-bidyapith-with-standard-informational-sections-home-about-academics-admissions-notice-board-announcements-events-staff-teachers-gallery-and-contact",
@@ -70,6 +75,30 @@
         "REQ-9"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-access-denied-experience-to-help-the-user-find-copy-their-internet-identity-principal-and-when-bootstrap-is-available-allow-them-to-become-the-first-admin-from-the-ui",
+      "title": "Update the /admin access denied experience to help the user find/copy their Internet Identity principal and, when bootstrap is available, allow them to become the first admin from the UI.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-re-run-the-full-build-and-deployment-process-for-the-current-application-revision-frontend-backend-and-ensure-it-completes-successfully",
+      "title": "Re-run the full build and deployment process for the current application revision (frontend + backend) and ensure it completes successfully.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-if-deployment-fails-again-capture-and-surface-the-complete-deployment-error-output-including-the-failing-step-and-stack-error-message-so-it-can-be-addressed-in-a-follow-up-change",
+      "title": "If deployment fails again, capture and surface the complete deployment error output (including the failing step and stack/error message) so it can be addressed in a follow-up change.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -98,6 +127,44 @@
       "summary": "Replace the site header logo with the newly uploaded image file \"Logo HD round cropped-1.jpeg\" by generating an optimized, round-cropped, transparent PNG logo asset at 512x512 under \"frontend/public/assets/generated\" and ensuring the header uses that asset at \"/assets/generated/school-logo-uploaded.dim_512x512.png\".",
       "reqIds": [
         "REQ-10"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add the user's Internet Identity principal to the backend admin allowlist so they can access /admin and edit the website (resolve Access Denied).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement a safe admin allowlist bootstrap so the site can be edited when no administrators are configured: if the admin allowlist is empty, allow the first authenticated caller to add themselves as an admin; once at least one admin exists, only existing admins can add/remove other admins.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Expose backend methods needed by the frontend to (a) read whether admin bootstrap is available and (b) read the caller principal in a displayable text format, without granting admin privileges by default.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add the Internet Identity principal \"xfz3b-e67hi-f3hzj-rhwom-7mwwe-qfwub-44lyr-ojgc3-xh4rp-urycv-fqe\" to the backend admin allowlist so this identity is recognized as an administrator and can edit the website via /admin.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Ensure the first-admin bootstrap prompt is no longer available once at least one admin exists (including after adding the provided principal), so non-admin users do not see the \"Become Admin (First-Time Setup)\" call-to-action.",
+      "reqIds": [
+        "REQ-15"
       ],
       "status": "pending"
     }

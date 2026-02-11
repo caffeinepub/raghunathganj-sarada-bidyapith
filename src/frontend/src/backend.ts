@@ -159,6 +159,7 @@ export interface backendInterface {
     _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    bootstrapFirstAdmin(): Promise<void>;
     deleteAnnouncement(id: string): Promise<void>;
     deleteEvent(id: string): Promise<void>;
     deleteSetting(key: string): Promise<void>;
@@ -169,9 +170,11 @@ export interface backendInterface {
     getAllSettings(): Promise<Array<Setting>>;
     getAnnouncement(id: string): Promise<Announcement>;
     getAnnouncementsByPublished(published: boolean): Promise<Array<Announcement>>;
+    getCallerPrincipalText(): Promise<string>;
     getCallerUserRole(): Promise<UserRole>;
     getContentMetadata(contentType: ContentCollection, id: string | null): Promise<ContentMetadata | null>;
     getEvent(id: string): Promise<Event>;
+    getFirstAdminWindowOpen(): Promise<boolean>;
     getPublishedGalleryEntries(): Promise<Array<[string, ExternalBlob]>>;
     getSetting(key: string): Promise<Setting | null>;
     getStaffProfile(key: string): Promise<StaffProfile>;
@@ -294,6 +297,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n8(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async bootstrapFirstAdmin(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.bootstrapFirstAdmin();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.bootstrapFirstAdmin();
             return result;
         }
     }
@@ -437,6 +454,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getCallerPrincipalText(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerPrincipalText();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerPrincipalText();
+            return result;
+        }
+    }
     async getCallerUserRole(): Promise<UserRole> {
         if (this.processError) {
             try {
@@ -476,6 +507,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getEvent(arg0);
+            return result;
+        }
+    }
+    async getFirstAdminWindowOpen(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getFirstAdminWindowOpen();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getFirstAdminWindowOpen();
             return result;
         }
     }

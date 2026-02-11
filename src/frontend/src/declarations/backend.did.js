@@ -100,6 +100,7 @@ export const idlService = IDL.Service({
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'bootstrapFirstAdmin' : IDL.Func([], [], []),
   'deleteAnnouncement' : IDL.Func([IDL.Text], [], []),
   'deleteEvent' : IDL.Func([IDL.Text], [], []),
   'deleteSetting' : IDL.Func([IDL.Text], [], []),
@@ -114,6 +115,7 @@ export const idlService = IDL.Service({
       [IDL.Vec(Announcement)],
       ['query'],
     ),
+  'getCallerPrincipalText' : IDL.Func([], [IDL.Text], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getContentMetadata' : IDL.Func(
       [ContentCollection, IDL.Opt(IDL.Text)],
@@ -121,6 +123,7 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'getEvent' : IDL.Func([IDL.Text], [Event], ['query']),
+  'getFirstAdminWindowOpen' : IDL.Func([], [IDL.Bool], ['query']),
   'getPublishedGalleryEntries' : IDL.Func(
       [],
       [IDL.Vec(IDL.Tuple(IDL.Text, ExternalBlob))],
@@ -231,6 +234,7 @@ export const idlFactory = ({ IDL }) => {
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'bootstrapFirstAdmin' : IDL.Func([], [], []),
     'deleteAnnouncement' : IDL.Func([IDL.Text], [], []),
     'deleteEvent' : IDL.Func([IDL.Text], [], []),
     'deleteSetting' : IDL.Func([IDL.Text], [], []),
@@ -245,6 +249,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(Announcement)],
         ['query'],
       ),
+    'getCallerPrincipalText' : IDL.Func([], [IDL.Text], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getContentMetadata' : IDL.Func(
         [ContentCollection, IDL.Opt(IDL.Text)],
@@ -252,6 +257,7 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'getEvent' : IDL.Func([IDL.Text], [Event], ['query']),
+    'getFirstAdminWindowOpen' : IDL.Func([], [IDL.Bool], ['query']),
     'getPublishedGalleryEntries' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Text, ExternalBlob))],

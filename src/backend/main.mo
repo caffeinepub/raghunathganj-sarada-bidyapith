@@ -1,11 +1,12 @@
 import Array "mo:core/Array";
 import Map "mo:core/Map";
+import List "mo:core/List";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
 import Text "mo:core/Text";
-import List "mo:core/List";
 import Time "mo:core/Time";
 import Int64 "mo:core/Int64";
+import Principal "mo:core/Principal";
 import Storage "blob-storage/Storage";
 import AccessControl "authorization/access-control";
 import MixinStorage "blob-storage/Mixin";
@@ -27,7 +28,29 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  // Content type and content id
+  var firstAdminWindowOpen = true;
+
+  public query func getFirstAdminWindowOpen() : async Bool {
+    firstAdminWindowOpen;
+  };
+
+  public query ({ caller }) func getCallerPrincipalText() : async Text {
+    caller.toText();
+  };
+
+  public shared ({ caller }) func bootstrapFirstAdmin() : async () {
+    if (not firstAdminWindowOpen) {
+      Runtime.trap("Unauthorized: Admin bootstrap window is closed");
+    };
+
+    if (caller.isAnonymous()) {
+      Runtime.trap("Unauthorized: Anonymous principals cannot become admins");
+    };
+
+    AccessControl.assignRole(accessControlState, caller, caller, #admin);
+    firstAdminWindowOpen := false;
+  };
+
   public type ContentCollection = {
     #announcements;
     #events;
@@ -43,8 +66,6 @@ actor {
     collectionSize : Nat;
     collectionUpdated : Time.Time;
   };
-
-  //---------------- DATA TYPES -------------------------------
 
   public type Announcement = {
     id : Text;
@@ -80,17 +101,13 @@ actor {
     value : Text;
   };
 
-  // FILE STORAGE IMPLEMENTATION
   include MixinStorage();
-
-  //--------------- PUBLISHED LARGE FILE GALLERY ----------------------
 
   public shared ({ caller }) func publishFiles(ids : [Text]) : async () {
     if (not (AccessControl.isAdmin(accessControlState, caller))) {
       Runtime.trap("Unauthorized: Only admins can perform this action");
     };
 
-    // Fetch and add in order w. latest first
     let validKeys = ids.filter(func(key) { publishedGallery.containsKey(key) });
     let reversedValidKeys = validKeys.reverse();
     for (key in reversedValidKeys.values()) {
@@ -108,8 +125,6 @@ actor {
       }
     );
   };
-
-  //------------------- STAFF -----------------------------
 
   public query ({ caller }) func getStaffProfile(key : Text) : async StaffProfile {
     switch (staffProfiles.get(key)) {
@@ -136,8 +151,6 @@ actor {
     staffProfiles.remove(id);
   };
 
-  //-------------------- ANNOUNCEMENTS -------------------
-
   module Announcement {
     public func compare(a : Announcement, b : Announcement) : Order.Order {
       Int64.compare(Int64.fromInt(a.timestamp), Int64.fromInt(b.timestamp));
@@ -145,8 +158,6 @@ actor {
   };
 
   public query ({ caller }) func getAllAnnouncements() : async [Announcement] {
-    // Only admins can see all announcements (including unpublished)
-    // Public users only see published announcements
     if (AccessControl.isAdmin(accessControlState, caller)) {
       announcementsList.toArray();
     } else {
@@ -155,7 +166,6 @@ actor {
   };
 
   public query ({ caller }) func getAnnouncementsByPublished(published : Bool) : async [Announcement] {
-    // Only admins can fetch unpublished announcements
     if (not published and not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admins can view unpublished announcements");
     };
@@ -166,7 +176,6 @@ actor {
     switch (announcementsList.toArray().find(func(a) { a.id == id })) {
       case (null) { Runtime.trap("Announcement not found") };
       case (?announcement) {
-        // Only admins can view unpublished announcements
         if (not announcement.published and not AccessControl.isAdmin(accessControlState, caller)) {
           Runtime.trap("Unauthorized: Only admins can view unpublished announcements");
         };
@@ -180,12 +189,10 @@ actor {
       Runtime.trap("Unauthorized: Only admins can perform this action");
     };
 
-    // Remove existing entries with same id
     let filteredList = announcementsList.filter(func(ann) { ann.id != a.id });
     announcementsList.clear();
     announcementsList.addAll(filteredList.values());
 
-    // Add new announcement at the end (already in right order)
     announcementsList.add(a);
   };
 
@@ -198,8 +205,6 @@ actor {
     announcementsList.addAll(filteredList.values());
   };
 
-  //---------------------- EVENTS -----------------------
-
   module Event {
     public func compare(a : Event, b : Event) : Order.Order {
       Int64.compare(a.date, b.date); // Ascending by date
@@ -207,8 +212,6 @@ actor {
   };
 
   public query ({ caller }) func getAllEvents() : async [Event] {
-    // Only admins can see all events (including unpublished)
-    // Public users only see published events
     if (AccessControl.isAdmin(accessControlState, caller)) {
       eventsList.toArray().sort();
     } else {
@@ -220,7 +223,6 @@ actor {
     switch (eventsList.toArray().find(func(event) { event.id == id })) {
       case (null) { Runtime.trap("Event not found") };
       case (?event) {
-        // Only admins can view unpublished events
         if (not event.published and not AccessControl.isAdmin(accessControlState, caller)) {
           Runtime.trap("Unauthorized: Only admins can view unpublished events");
         };
@@ -234,12 +236,10 @@ actor {
       Runtime.trap("Unauthorized: Only admins can perform this action");
     };
 
-    // Remove existing entries with same id
     let filteredList = eventsList.filter(func(ev) { ev.id != e.id });
     eventsList.clear();
     eventsList.addAll(filteredList.values());
 
-    // Add new event at the end (already in right order)
     eventsList.add(e);
   };
 
@@ -251,8 +251,6 @@ actor {
     eventsList.clear();
     eventsList.addAll(filteredList.values());
   };
-
-  //------------------- SITE SETTINGS -----------------
 
   public query ({ caller }) func getSetting(key : Text) : async ?Setting {
     siteSettings.get(key);
@@ -275,8 +273,6 @@ actor {
     };
     siteSettings.remove(key);
   };
-
-  //------------------ CONTENT METADATA -----------------
 
   func getAnnouncementsCount() : Nat {
     announcementsList.size();

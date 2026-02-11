@@ -66,6 +66,7 @@ export enum UserRole {
 }
 export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    bootstrapFirstAdmin(): Promise<void>;
     deleteAnnouncement(id: string): Promise<void>;
     deleteEvent(id: string): Promise<void>;
     deleteSetting(key: string): Promise<void>;
@@ -76,9 +77,11 @@ export interface backendInterface {
     getAllSettings(): Promise<Array<Setting>>;
     getAnnouncement(id: string): Promise<Announcement>;
     getAnnouncementsByPublished(published: boolean): Promise<Array<Announcement>>;
+    getCallerPrincipalText(): Promise<string>;
     getCallerUserRole(): Promise<UserRole>;
     getContentMetadata(contentType: ContentCollection, id: string | null): Promise<ContentMetadata | null>;
     getEvent(id: string): Promise<Event>;
+    getFirstAdminWindowOpen(): Promise<boolean>;
     getPublishedGalleryEntries(): Promise<Array<[string, ExternalBlob]>>;
     getSetting(key: string): Promise<Setting | null>;
     getStaffProfile(key: string): Promise<StaffProfile>;

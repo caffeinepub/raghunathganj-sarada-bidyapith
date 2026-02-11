@@ -1,4 +1,48 @@
 {
   "kind": "feature_evidence_report",
-  "features": []
+  "features": [
+    {
+      "featureId": "feature-re-run-the-full-build-and-deployment-process-for-the-current-application-revision-frontend-backend-and-ensure-it-completes-successfully",
+      "featureTitle": "Re-run the full build and deployment process for the current application revision (frontend + backend) and ensure it completes successfully.",
+      "files": [
+        "frontend/docs/deploy/retry-deploy.md",
+        "frontend/scripts/retry-deploy.sh"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-if-deployment-fails-again-capture-and-surface-the-complete-deployment-error-output-including-the-failing-step-and-stack-error-message-so-it-can-be-addressed-in-a-follow-up-change",
+      "featureTitle": "If deployment fails again, capture and surface the complete deployment error output (including the failing step and stack/error message) so it can be addressed in a follow-up change.",
+      "files": [
+        "frontend/deploy-logs/.gitkeep",
+        "frontend/docs/deploy/deploy-log-capture.md",
+        "frontend/scripts/run-deploy-with-full-logs.sh"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    }
+  ]
 }

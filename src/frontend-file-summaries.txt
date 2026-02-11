@@ -2,5 +2,13 @@
   "frontend/src/pages/admin/AdminGalleryPage.tsx": "Admin page for managing gallery images with upload functionality and progress tracking using ExternalBlob from the backend.",
   "frontend/src/pages/admin/AdminSettingsPage.tsx": "Admin page for editing site settings including contact information (address, phone, email, office hours) that display on the public site.",
   "frontend/src/index.css": "Global styles with OKLCH color system defining a warm green and cream palette suitable for a school website, with both light and dark mode support.",
-  "frontend/src/components/layout/SiteHeader.tsx": "Sticky header component with school logo, navigation links, login button, and mobile menu drawer; now displays the uploaded Raghunathganj Sarada Bidyapith logo."
+  "frontend/src/components/layout/SiteHeader.tsx": "Sticky header component with school logo, navigation links, login button, and mobile menu drawer; now displays the uploaded Raghunathganj Sarada Bidyapith logo.",
+  "frontend/src/hooks/useCallerPrincipalText.ts": "React Query hook that fetches the current caller's Internet Identity principal as displayable text from the backend, with fallback to local identity.",
+  "frontend/src/hooks/useFirstAdminBootstrap.ts": "React Query hooks for checking if first-admin bootstrap is available and performing the bootstrap action with proper query invalidation.",
+  "frontend/src/components/auth/AdminGate.tsx": "Admin authorization gate component that displays access denied screen with copyable principal text and first-admin bootstrap CTA when available.",
+  "frontend/docs/deploy/retry-deploy.md": "Complete deployment retry runbook documenting the exact command sequence, prerequisites, verification checklist, and troubleshooting steps for re-running the full build and deployment process.",
+  "frontend/scripts/retry-deploy.sh": "Bash script that executes the full deployment sequence (install dependencies, generate bindings, build frontend, deploy canisters) with clear step-by-step progress indicators and fail-fast behavior.",
+  "frontend/scripts/run-deploy-with-full-logs.sh": "Wrapper script that runs the retry deploy script while capturing complete stdout/stderr to a timestamped log file in deploy-logs/ directory, preserving exit codes and streaming output to console.",
+  "frontend/docs/deploy/deploy-log-capture.md": "Guide for capturing, analyzing, and sharing complete deployment logs, including common failure patterns, log file locations, and instructions for reporting deployment issues with full context.",
+  "frontend/deploy-logs/.gitkeep": "Placeholder file to ensure the deploy-logs directory exists in the workspace for log output without committing actual log files."
 }

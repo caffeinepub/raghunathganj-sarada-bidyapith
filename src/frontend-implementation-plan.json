@@ -1,26 +1,50 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update header logo to use newly generated optimized PNG asset",
+  "title": "Deployment retry runbook and full deploy log capture (frontend repo artifacts)",
   "requirements": [
     {
-      "id": "REQ-10",
-      "summary": "Generate and serve the new round-cropped transparent logo PNG and ensure the site header uses it on desktop and mobile.",
+      "id": "REQ-16",
+      "summary": "Add a repo-local runbook and helper script to re-run the full build + deployment flow for the current revision.",
       "acceptanceCriteria": [
-        "A new optimized logo image exists at \"frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png\" (512x512, transparent background, round-cropped).",
-        "The site header renders the updated logo using src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" and it is visible on both desktop and mobile navigation.",
-        "No backend changes are required for this logo replacement."
+        "A new build is triggered for the current code revision.",
+        "The deployment finishes successfully and the app is reachable after deploy."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png",
-          "operation": "modify",
-          "description": "Replace/create the optimized, round-cropped, transparent PNG (512x512) derived from \"Logo HD round cropped-1.jpeg\" at this exact path so it is served as a static asset from public."
+          "path": "frontend/docs/deploy/retry-deploy.md",
+          "operation": "create",
+          "description": "Document the exact command sequence to re-run the full build and deployment process for the current revision (covering both frontend build and overall deploy invocation), including preflight checks (clean install, environment prerequisites) and a final verification checklist to confirm the app is reachable after deploy."
         },
         {
-          "path": "frontend/src/components/layout/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Ensure the header logo <img> uses src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" (and remains rendered in the sticky header across desktop and mobile) without introducing any non-logo branding/layout changes."
+          "path": "frontend/scripts/retry-deploy.sh",
+          "operation": "create",
+          "description": "Add a single entrypoint script that runs the documented build + deploy sequence for the current revision with clear step headers and non-interactive defaults, so a retry is consistent and reproducible."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Ensure any subsequent deployment failure is captured with full, untruncated output and clearly indicates the failing step.",
+      "acceptanceCriteria": [
+        "On failure, the deploy output clearly indicates which step failed and includes the full error message (not truncated).",
+        "The reported error is sufficient for a developer to reproduce or pinpoint the cause (e.g., build step name, command, and error text)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/scripts/run-deploy-with-full-logs.sh",
+          "operation": "create",
+          "description": "Create a wrapper script that runs the retry deploy script with strict shell settings (e.g., fail-fast/pipefail behavior), prefixes logs with the current step name, and writes complete stdout/stderr to a timestamped log file under a repo-local logs folder while still streaming to the console."
+        },
+        {
+          "path": "frontend/docs/deploy/deploy-log-capture.md",
+          "operation": "create",
+          "description": "Add instructions for capturing and sharing the full deploy log output (including the failing step label and the complete error text), and guidance on what to include in a follow-up issue/change (step name, command, log file path)."
+        },
+        {
+          "path": "frontend/deploy-logs/.gitkeep",
+          "operation": "create",
+          "description": "Add a placeholder to ensure the deploy logs directory exists in the workspace for log output, without committing actual log contents."
         }
       ]
     }

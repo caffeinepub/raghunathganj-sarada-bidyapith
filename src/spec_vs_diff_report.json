@@ -1,29 +1,45 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T09:24:47.015Z",
-  "summary": "The diff only modifies project_state.json and does not add the required generated logo asset or update the frontend header to use it. REQ-10 is not implemented.",
+  "generatedAt": "2026-02-11T10:27:27.664Z",
+  "summary": "The diff adds a deployment retry script, a wrapper to capture full stdout/stderr to timestamped log files, and accompanying documentation. However, it does not provide evidence of actually re-running/triggering a build+deploy for the current revision in CI or ensuring the deployment succeeds and the app is reachable. Additionally, there are backend (and apparent broader frontend/admin) changes that look unrelated to deployment retry/log capture, which violates the stated constraint/non-goals.",
   "missing_requirements": [
     {
-      "id": "REQ-10",
-      "requirement": "Generate an optimized, round-cropped, transparent 512x512 PNG logo at frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png and update the site header to render it via src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" (desktop and mobile), with no backend changes.",
-      "reason": "No new image asset was added under frontend/public/assets/generated, and no frontend header/component files were modified to change the logo src. The only change is to project_state.json.",
+      "id": "REQ-16",
+      "requirement": "Re-run the full build and deployment process for the current application revision (frontend + backend) and ensure it completes successfully.",
+      "reason": "The diff provides scripts/docs to run deployment commands manually, but does not show any actual build/deploy execution result, CI/CD trigger, or changes that would ensure the deployment completes successfully and the app is reachable post-deploy.",
       "evidence": [
-        "project_state.json"
+        "frontend/scripts/retry-deploy.sh",
+        "frontend/docs/deploy/retry-deploy.md"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Updated project metadata/state (project_state.json) unrelated to replacing the header logo asset.",
-      "reason": "The BuildRequest is specifically about replacing the site header logo and adding a generated static asset; it does not request changes to project_state.json.",
+      "description": "Backend application logic changes (content/admin-related behavior) unrelated to deployment retry/log capture.",
+      "reason": "BuildRequest explicitly constrains changes to deployment retry and error output surfacing, with non-goals of not adding/changing website features or CMS/admin behavior. The backend file shows substantive state/types/methods for gallery/staff/settings/admin bootstrap, indicating product behavior changes beyond deployment tooling.",
       "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Updates/maintenance of a project-wide frontend file summary and project state metadata unrelated to deployment retry/log capture.",
+      "reason": "The request is about re-running deployment and capturing full deploy errors; modifying/adding summary/metadata files is not requested and is unrelated to deployment retry behavior.",
+      "evidence": [
+        "frontend-file-summaries.txt",
         "project_state.json"
       ]
     }
   ],
-  "confidence": 0.86,
+  "confidence": 0.74,
   "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/deploy-logs/.gitkeep",
+    "frontend/docs/deploy/deploy-log-capture.md",
+    "frontend/docs/deploy/retry-deploy.md",
+    "frontend/scripts/retry-deploy.sh",
+    "frontend/scripts/run-deploy-with-full-logs.sh",
     "project_state.json"
   ]
 }
