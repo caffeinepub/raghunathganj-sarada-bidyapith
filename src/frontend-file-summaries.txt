@@ -1,0 +1,6 @@
+{
+  "frontend/src/pages/admin/AdminGalleryPage.tsx": "Admin page for managing gallery images with upload functionality and progress tracking using ExternalBlob from the backend.",
+  "frontend/src/pages/admin/AdminSettingsPage.tsx": "Admin page for editing site settings including contact information (address, phone, email, office hours) that display on the public site.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining a warm green and cream palette suitable for a school website, with both light and dark mode support.",
+  "frontend/src/components/layout/SiteHeader.tsx": "Sticky header component with school logo, navigation links, login button, and mobile menu drawer; now displays the uploaded Raghunathganj Sarada Bidyapith logo."
+}

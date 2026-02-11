@@ -1,0 +1,50 @@
+{
+  "kind": "build_request",
+  "title": "Replace site header logo with newly uploaded image",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-10",
+      "text": "Replace the site header logo with the newly uploaded image file \"Logo HD round cropped-1.jpeg\" by generating an optimized, round-cropped, transparent PNG logo asset at 512x512 under \"frontend/public/assets/generated\" and ensuring the header uses that asset at \"/assets/generated/school-logo-uploaded.dim_512x512.png\".",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "change the logo with the given picture"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A new optimized logo image exists at \"frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png\" (512x512, transparent background, round-cropped).",
+        "The site header renders the updated logo using src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" and it is visible on both desktop and mobile navigation.",
+        "No backend changes are required for this logo replacement."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui (compose them instead).",
+    "Do not modify files listed as immutable paths in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Serve the logo as a static asset from frontend/public/assets/generated; do not route the logo through the backend."
+  ],
+  "nonGoals": [
+    "Changing any other site branding, theme colors, typography, or layout beyond the logo asset replacement.",
+    "Adding admin/CMS controls for logo upload or editing."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Optimized round-cropped school logo with transparent background (school-logo-uploaded.dim_512x512.png, 512x512)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Build a website for the upper primary school \"Raghunathganj Sarada Bidyapith\" with editable (CMS-like) features.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Optimized round-cropped school logo with transparent background (school-logo-uploaded.dim_512x512.png, 512x512)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-public-facing-school-website-for-the-upper-primary-school-named-raghunathganj-sarada-bidyapith-with-standard-informational-sections-home-about-academics-admissions-notice-board-announcements-events-staff-teachers-gallery-and-contact",
+      "title": "Create a public-facing school website for the upper primary school named “Raghunathganj Sarada Bidyapith” with standard informational sections: Home, About, Academics, Admissions, Notice Board/Announcements, Events, Staff/Teachers, Gallery, and Contact.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-admin-authentication-flow-using-internet-identity-and-restrict-admin-features-to-an-allowlisted-set-of-administrator-principals-stored-in-the-backend",
+      "title": "Implement an admin authentication flow using Internet Identity and restrict admin features to an allowlisted set of administrator principals stored in the backend.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-dashboard-that-allows-admins-to-create-edit-publish-unpublish-reorder-and-delete-editable-website-content-for-announcements-events-staff-entries-gallery-images-and-key-site-settings-school-address-phone-email-office-hours",
+      "title": "Add an admin dashboard that allows admins to create, edit, publish/unpublish, reorder, and delete editable website content for: Announcements, Events, Staff entries, Gallery images, and key site settings (school address, phone, email, office hours).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-react-query-on-the-frontend-to-fetch-public-content-and-to-manage-admin-mutations-including-loading-error-states-and-optimistic-refresh-behavior-appropriate-for-admin-edits",
+      "title": "Use React Query on the frontend to fetch public content and to manage admin mutations, including loading/error states and optimistic/refresh behavior appropriate for admin edits.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-coherent-distinctive-visual-theme-suitable-for-an-upper-primary-school-website-avoid-blue-purple-including-typography-colors-spacing-and-reusable-section-layouts-and-apply-it-consistently-across-all-pages-and-the-admin-area",
+      "title": "Define and apply a coherent, distinctive visual theme suitable for an upper primary school website (avoid blue/purple), including typography, colors, spacing, and reusable section layouts, and apply it consistently across all pages and the admin area.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-footer-with-key-links-and-school-contact-details-and-include-a-simple-contact-page-that-displays-the-editable-site-settings-plus-a-non-sending-contact-form-client-side-only-with-clear-messaging-that-the-form-does-not-submit-externally",
+      "title": "Add a footer with key links and school contact details, and include a simple Contact page that displays the editable Site Settings plus a non-sending contact form (client-side only) with clear messaging that the form does not submit externally.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-include-static-image-assets-for-the-site-branding-and-homepage-visuals-and-render-them-from-the-frontend-as-static-assets-under-frontend-public-assets-generated",
+      "title": "Generate and include static image assets for the site branding and homepage visuals, and render them from the frontend as static assets under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-header-logo-image-with-the-user-uploaded-logo-image-logo-hd-round-cropped-jpeg-by-adding-an-optimized-static-logo-asset-under-frontend-public-assets-generated-and-updating-the-header-to-reference-the-new-asset-instead-of-assets-generated-school-logo-dim-512x512-png",
+      "title": "Replace the current header logo image with the user-uploaded logo image (\"Logo HD round cropped.jpeg\") by adding an optimized static logo asset under frontend/public/assets/generated and updating the header to reference the new asset instead of \"/assets/generated/school-logo.dim_512x512.png\".",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a school website for Raghunathganj Sarada Bidyapith with editable content/features (admin-editable pages/sections).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Persist all editable content in the Motoko backend with stable storage so content remains after canister upgrades, and expose query/update methods needed by the frontend.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Replace the site logo with the user-provided (given) picture/logo asset.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Replace the site header logo with the newly uploaded image file \"Logo HD round cropped-1.jpeg\" by generating an optimized, round-cropped, transparent PNG logo asset at 512x512 under \"frontend/public/assets/generated\" and ensuring the header uses that asset at \"/assets/generated/school-logo-uploaded.dim_512x512.png\".",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Raghunathganj Sarada Bidyapith",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

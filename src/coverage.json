@@ -1,0 +1,35 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T09:24:47.018Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 1,
+    "implemented": 0,
+    "items": [
+      {
+        "id": "REQ-10",
+        "summary": "Replace the site header logo with the newly uploaded image file \"Logo HD round cropped-1.jpeg\" by generating an optimized, round-cropped, transparent PNG logo asset at 512x512 under \"frontend/public/assets/generated\" and ensuring the header uses that asset at \"/assets/generated/school-logo-uploaded.dim_512x512.png\".",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png",
+          "frontend/src/components/layout/SiteHeader.tsx"
+        ],
+        "matchedFiles": []
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png, 512x512",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Update header logo to use newly generated optimized PNG asset",
+  "requirements": [
+    {
+      "id": "REQ-10",
+      "summary": "Generate and serve the new round-cropped transparent logo PNG and ensure the site header uses it on desktop and mobile.",
+      "acceptanceCriteria": [
+        "A new optimized logo image exists at \"frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png\" (512x512, transparent background, round-cropped).",
+        "The site header renders the updated logo using src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" and it is visible on both desktop and mobile navigation.",
+        "No backend changes are required for this logo replacement."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/school-logo-uploaded.dim_512x512.png",
+          "operation": "modify",
+          "description": "Replace/create the optimized, round-cropped, transparent PNG (512x512) derived from \"Logo HD round cropped-1.jpeg\" at this exact path so it is served as a static asset from public."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Ensure the header logo <img> uses src=\"/assets/generated/school-logo-uploaded.dim_512x512.png\" (and remains rendered in the sticky header across desktop and mobile) without introducing any non-logo branding/layout changes."
+        }
+      ]
+    }
+  ]
+}
